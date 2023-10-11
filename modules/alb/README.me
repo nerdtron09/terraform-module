@@ -1,0 +1,15 @@
+This module creates an Application Load Balancer and a corresponding Target Group.
+- The load balancer accepts HTTP (port 80) traffic. 
+- The target group listens to HTTP (port 80) traffic.
+
+Variables to pass include:
+alb = {
+  name_tag           = string         --> Application load balancer name
+  sg_ids             = list(string)   --> Security group IDs
+  subnets            = list(string)   --> Subnet IDs
+}
+
+targetgrp = {
+  name_tag           = string         --> Target group name
+  vpc_id             = string         --> VPC ID
+}

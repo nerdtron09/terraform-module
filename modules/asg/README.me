@@ -1,0 +1,35 @@
+This module creates an EC2 instance profile, Launch Configuration and an Auto Scaling Group.
+- Create an EC2 instance profile with managed policies.
+- The EC2 instance profile is automatically used by the launch configuration.
+- Create a launch configuration by passing the instance details and user data file path.
+- The launch configuration is automatically used by the auto scaling group.
+- The auto scaling group:
+  - maintains a fixed number of instances
+  - uses ELB health check type
+
+Variables to pass include:
+EC2_role = {
+  name                = string         --> EC2 instance profile name
+  managed_policy_arns = list(string)   --> Managed policies
+}
+
+launchconfig = {
+  name_prefix         = string         --> Launch configuration name-prefix
+  image_id            = string         --> Image ID
+  instance_type       = string         --> Instance type
+  key_pair            = string         --> EC2 key pair
+  security_group_ids  = list(string)   --> Security groups
+  userdata_path       = string         --> User data file path
+}
+
+asg = {
+  name_tag            = string         --> Auto scaling group name
+  min_size            = number         --> Minimum size
+  max_size            = number         --> Maximum size
+  desired_capacity    = number         --> Desired capacity
+  hc_grace_period     = number         --> Health check grace period
+  subnet_ids          = list(string)   --> Subnet IDs
+  targetgrp_arns      = list(string)   --> Target group ARNs
+  GBL_CLASS_0_value   = string         --> Value for tag key GBL_CLASS_0 to be propagated to instances
+  GBL_CLASS_1_value   = string         --> Value for tag key GBL_CLASS_1 to be propagated to instances
+}
